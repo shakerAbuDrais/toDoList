@@ -4,7 +4,7 @@ const tasks = [
   {
     description: 'Clean the house',
     completed: false,
-    index: 0,
+    index: 10,
   },
   {
     description: 'Start working on JS',
@@ -24,6 +24,8 @@ const btn = document.createElement('p');
 btn.classList.add('btn');
 btn.innerHTML = 'Clear All Completed';
 
+// eslint-disable-next-line no-nested-ternary
+tasks.sort((a, b) => ((a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0)));
 tasks.forEach((el) => {
   window.addEventListener('load', (() => {
     toDoItem.innerHTML += `<input type="checkbox" id= ${el.index} name="item${el.index}" value="">
