@@ -1,36 +1,68 @@
+import Store from '../modules/storeClass.js';
+
+import DisplayScreen from '../modules/display.js';
+
 import './style.css';
 
-const tasks = [
-  {
-    description: 'Clean the house',
-    completed: false,
-    index: 10,
-  },
-  {
-    description: 'Start working on JS',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Take a break',
-    completed: false,
-    index: 2,
-  },
-];
+class Task {
+  constructor(description, completed, id) {
+    this.description = description;
+    this.completed = completed;
+    this.id = id;
+  }
+}
 
-const form = document.querySelector('.form');
-const toDoItem = document.createElement('div');
-const btn = document.createElement('p');
-btn.classList.add('btn');
-btn.innerHTML = 'Clear All Completed';
+// display books event
+window.addEventListener('load', DisplayScreen.displayTasks);
 
-// eslint-disable-next-line no-nested-ternary
-tasks.sort((a, b) => ((a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0)));
-tasks.forEach((el) => {
-  window.addEventListener('load', (() => {
-    toDoItem.innerHTML += `<input type="checkbox" id= ${el.index} name="item${el.index}" value="">
-      <label for="item${el.index}"> ${el.description}</label><span id="dots">&#8942;</span><br> <hr>`;
-    form.appendChild(toDoItem);
-    form.appendChild(btn);
-  }));
+// Add book event
+document.querySelector('#text').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const description = document.querySelector('#text').value;
+    const completed = false;
+    const id = Store.getTasks().length + 1;
+    // instatiate books
+    const task = new Task(description, completed, id);
+    // Display Book to screen
+    DisplayScreen.addTaskToList(task);
+    // Add to local Storage
+    Store.addTask(task);
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
+  }
 });
+window.onkeypress = () => {
+  document.querySelectorAll('.item').forEach((item) => {
+    item.addEventListener('keyup', (e) => {
+      e.preventDefault();
+      const description = item.textContent;
+      const completed = false;
+      const { id } = item;
+
+      const task = new Task(description, completed, id);
+      DisplayScreen.editTask(task);
+      Store.editTask(id, description);
+    });
+  });
+};
+window.onload = () => {
+  const item = document.querySelectorAll('.checkbox');
+  item.forEach((el) => el.addEventListener('change', (e) => {
+    const id = parseInt(e.target.name.replace(/[^\d.]/g, ''), 10);
+    const label = document.querySelectorAll('.item')[id - 1];
+    if (el.checked) {
+      label.style.textDecoration = 'line-through';
+    } else {
+      label.style.textDecoration = 'none';
+    }
+    Store.completed(id);
+  }));
+  const remove = document.querySelectorAll('.remove-btn');
+  remove.forEach((el) => el.addEventListener('click', (e) => {
+    const { id } = e.target.parentNode.childNodes[2];
+    DisplayScreen.deleteTask(e.target);
+    // Remove task from Local Storage
+    Store.removeTask(parseInt(id, 10));
+  }));
+};

@@ -16,6 +16,10 @@ body {
   box-shadow: 2px 2px grey;
 }
 
+li {
+  list-style: none;
+}
+
 #dots {
   float: right;
   padding: 0 20px;
@@ -46,4 +50,8 @@ h4 {
   border: none;
   color: grey;
   text-align: center;
+}
+
+.line-s {
+  text-decoration: line-through;
 }
