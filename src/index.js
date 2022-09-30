@@ -50,7 +50,8 @@ window.onload = () => {
   const item = document.querySelectorAll('.checkbox');
   item.forEach((el) => el.addEventListener('change', (e) => {
     const id = parseInt(e.target.name.replace(/[^\d.]/g, ''), 10);
-    const label = document.querySelectorAll('.item')[id - 1];
+    console.log(id);
+    const label = e.target.parentNode.childNodes[2];
     if (el.checked) {
       label.style.textDecoration = 'line-through';
     } else {
