@@ -20,13 +20,18 @@ export default class DisplayScreen {
     form.appendChild(btn);
   }
 
-  static editTask() {
-
-  }
-
   static deleteTask(element) {
     if (element.classList.contains('remove-btn')) {
       element.parentElement.remove();
+    }
+  }
+
+  static deleteAll() {
+    const deleted = document.querySelectorAll('.checkbox');
+    for (let i = 0; i < deleted.length; i += 1) {
+      if (deleted[i].checked === true) {
+        deleted[i].parentNode.remove();
+      }
     }
   }
 }
