@@ -20,10 +20,6 @@ export default class DisplayScreen {
     form.appendChild(btn);
   }
 
-  static editTask() {
-
-  }
-
   static deleteTask(element) {
     if (element.classList.contains('remove-btn')) {
       element.parentElement.remove();

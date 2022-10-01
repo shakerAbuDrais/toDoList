@@ -50,10 +50,10 @@ window.onload = () => {
   const item = document.querySelectorAll('.checkbox');
   item.forEach((el) => el.addEventListener('change', (e) => {
     const id = parseInt(e.target.name.replace(/[^\d.]/g, ''), 10);
-    console.log(id);
     const label = e.target.parentNode.childNodes[2];
     if (el.checked) {
       label.style.textDecoration = 'line-through';
+      localStorage.setItem('label', el.checked);
     } else {
       label.style.textDecoration = 'none';
     }
@@ -66,4 +66,24 @@ window.onload = () => {
     // Remove task from Local Storage
     Store.removeTask(parseInt(id, 10));
   }));
+
+  const tasks = Store.getTasks();
+  if (tasks.length !== 0) {
+    const clearAll = document.querySelector('.btn');
+    clearAll.addEventListener('click', (e) => {
+      e.preventDefault();
+      Store.removeAll();
+    });
+  }
+
+  function load() {
+    const tasks = Store.getTasks();
+    for (let i = 0; i < tasks.length; i += 1) {
+      if (tasks[i].completed === true) {
+        const checked = JSON.parse(localStorage.getItem('label'));
+        document.querySelectorAll('.checkbox')[i].checked = checked;
+      }
+    }
+  }
+  load();
 };
