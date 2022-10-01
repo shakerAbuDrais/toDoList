@@ -25,4 +25,13 @@ export default class DisplayScreen {
       element.parentElement.remove();
     }
   }
+
+  static deleteAll() {
+    const deleted = document.querySelectorAll('.checkbox');
+    for (let i = 0; i < deleted.length; i += 1) {
+      if (deleted[i].checked === true) {
+        deleted[i].parentNode.remove();
+      }
+    }
+  }
 }

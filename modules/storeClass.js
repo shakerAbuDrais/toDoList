@@ -54,7 +54,7 @@ export default class Store {
       }
     });
     tasks.forEach((task, i) => {
-      task.index = i + 1;
+      task.id = i + 1;
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
@@ -68,7 +68,7 @@ export default class Store {
       return true;
     });
     tasks.forEach((e, i) => {
-      e.index = i + 1;
+      e.id = i + 1;
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));
     return tasks;

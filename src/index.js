@@ -73,6 +73,7 @@ window.onload = () => {
     clearAll.addEventListener('click', (e) => {
       e.preventDefault();
       Store.removeAll();
+      DisplayScreen.deleteAll();
     });
   }
 
