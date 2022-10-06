@@ -51,9 +51,6 @@ const Tasks = class {
       this.displayTasks();
     };
 
-    // Displays the task on the screen based on events.
-    // New Div's and classes are created here to render
-    // the new task addition dynamically.
     displayTasks = () => {
       const containerElement = document.querySelector('.container-todo');
       const ulElement = document.querySelector('.ul-item');

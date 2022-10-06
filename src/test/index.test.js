@@ -78,12 +78,3 @@ describe('Add and remove task', () => {
     expect(ulElement.childElementCount).toEqual(7);
   });
 });
-
-describe('LocalStorage Test', () => {
-  test('is it saving to localstorage', () => {
-    expect(localStorage.length).toBe(1);
-  });
-  test('"tasks" array should be saved in localStorage ', () => {
-    expect(Object.getOwnPropertyNames(localStorage)[6]).toBe('tasks');
-  });
-});
