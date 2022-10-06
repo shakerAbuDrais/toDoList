@@ -35,3 +35,5 @@ export default class DisplayScreen {
     }
   }
 }
+
+module.exports.deleteTask = DisplayScreen.deleteTask;
